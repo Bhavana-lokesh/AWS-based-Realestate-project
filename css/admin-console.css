@@ -1,0 +1,423 @@
+body.admin-console {
+    --admin-ink: #1d293b;
+    --admin-muted: #6d788a;
+    --admin-navy: #182b49;
+    --admin-navy-deep: #10213a;
+    --admin-gold: #c49a59;
+    --admin-border: #e2e7ef;
+    background: #f3f5f9;
+    color: var(--admin-ink);
+}
+
+body.admin-console .header {
+    background: var(--admin-navy);
+    border-bottom: 3px solid var(--admin-gold);
+    box-shadow: 0 5px 18px rgba(18, 34, 58, .18);
+}
+
+body.admin-console .header-left {
+    background: var(--admin-navy-deep);
+}
+
+body.admin-console .header-left .logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    width: 100%;
+    height: 60px;
+    padding: 0 16px;
+    line-height: 1;
+}
+
+body.admin-console .admin-console-mark {
+    display: inline-grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border: 1px solid rgba(242, 207, 145, .5);
+    border-radius: 9px;
+    background: rgba(196, 154, 89, .17);
+    color: #f2cf91;
+    flex: 0 0 36px;
+}
+
+body.admin-console .admin-console-mark svg {
+    display: block;
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2.4;
+}
+
+body.admin-console .admin-console-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: .01em;
+    line-height: 1.15;
+}
+
+body.admin-console .admin-console-name small {
+    margin-top: 4px;
+    color: #d6bd91;
+    font-size: 8px;
+    letter-spacing: .15em;
+    line-height: 1;
+}
+
+body.admin-console .header-left .logo.logo-small {
+    display: none;
+    width: 60px;
+}
+
+body.admin-console .header .dropdown-toggle,
+body.admin-console .header .nav-link,
+body.admin-console .header .mobile_btn,
+body.admin-console .header #toggle_btn {
+    color: #fff;
+}
+
+body.admin-console .sidebar {
+    background: var(--admin-navy-deep);
+}
+
+body.admin-console .sidebar .sidebar-menu > ul > li > a,
+body.admin-console .sidebar .sidebar-menu > ul > li > a span,
+body.admin-console .sidebar .sidebar-menu > ul > li > a i,
+body.admin-console .sidebar .menu-title {
+    color: #d8e0ec;
+}
+
+body.admin-console .sidebar .sidebar-menu > ul > li > a:hover,
+body.admin-console .sidebar .sidebar-menu > ul > li.active > a,
+body.admin-console .sidebar .sidebar-menu > ul > li.submenu ul li a:hover {
+    background: rgba(196, 154, 89, .15);
+    color: #f2cf91;
+}
+
+body.admin-console .sidebar .menu-title span {
+    color: #c7a970;
+}
+
+body.admin-console .page-wrapper {
+    background: #f3f5f9;
+    padding-top: 60px;
+}
+
+@media (max-width: 991px) {
+    body.admin-console .header-left .logo:not(.logo-small) {
+        display: none;
+    }
+
+    body.admin-console .header-left .logo.logo-small {
+        display: flex;
+        justify-content: center;
+        flex: 0 0 60px;
+        padding: 0;
+        margin: 0 auto;
+    }
+}
+
+body.admin-console .page-title,
+body.admin-console .content h3,
+body.admin-console .content h4 {
+    color: var(--admin-navy);
+}
+
+body.admin-console .card {
+    border: 1px solid var(--admin-border);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(27, 43, 68, .06);
+}
+
+body.admin-console .card-header {
+    background: #fff;
+    border-bottom-color: var(--admin-border);
+}
+
+body.admin-console .btn-primary,
+body.admin-console .bg-primary {
+    background-color: var(--admin-navy) !important;
+    border-color: var(--admin-navy) !important;
+}
+
+body.admin-console .btn-primary:hover,
+body.admin-console .btn-primary:focus {
+    background-color: #243e65 !important;
+    border-color: #243e65 !important;
+}
+
+body.admin-console .btn-outline-primary {
+    color: var(--admin-navy);
+    border-color: var(--admin-navy);
+}
+
+body.admin-console .btn-outline-primary:hover {
+    color: #fff;
+    background: var(--admin-navy);
+}
+
+body.admin-console .table thead th {
+    color: #43516a;
+    background: #f5f7fb;
+    border-color: var(--admin-border);
+}
+
+body.admin-console .form-control:focus {
+    border-color: var(--admin-gold);
+    box-shadow: 0 0 0 .2rem rgba(196, 154, 89, .18);
+}
+
+body.admin-console .breadcrumb-item a {
+    color: #80602f;
+}
+
+body.admin-console .dash-widget-icon {
+    border-radius: 10px;
+}
+
+@media (max-width: 767px) {
+    body.admin-console .sidebar {
+        background: var(--admin-navy-deep);
+    }
+}
+
+/* ============================================================
+   Property view list — horizontal scroll
+   ============================================================ */
+body.admin-console .admin-property-scroll {
+    overflow-x: auto;
+    width: 100%;
+    margin-bottom: 1rem;
+    border: 1px solid var(--admin-border);
+    border-radius: 8px;
+    background: #fff;
+}
+body.admin-console .admin-property-scroll table {
+    min-width: 900px;
+    margin-bottom: 0;
+}
+
+/* Review status badges */
+body.admin-console .review-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.25rem 0.6rem;
+    border-radius: 10px;
+    display: inline-block;
+    min-width: 70px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+body.admin-console .review-badge.pending { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+body.admin-console .review-badge.approved { background: #d1e7dd; color: #0f5132; border: 1px solid #badbcc; }
+body.admin-console .review-badge.rejected { background: #f8d7da; color: #842029; border: 1px solid #f5c2c7; }
+
+/* Filter pill tabs */
+body.admin-console .review-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+/* Property view list — horizontal scroll */
+body.admin-console #datatable-buttons {
+    overflow-x: auto;
+    display: block;
+    width: 100%;
+    border: 1px solid var(--admin-border);
+    border-radius: 8px;
+    background: #fff;
+}
+
+/* ============================================================
+   Dashboard header — prevent welcome title overflow
+   ============================================================ */
+body.admin-console .content .page-header .page-title {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: auto;
+}
+
+/* ============================================================
+   Dashboard stat cards — uniform layout & modern styling
+   Cards fit 4 per row without wrapping on xl screens.
+   ============================================================ */
+body.admin-console .stat-cards-row {
+    margin-bottom: 0.5rem;
+}
+
+body.admin-console .stat-cards-row > div {
+    display: flex;
+    margin-bottom: 1.5rem;
+}
+
+body.admin-console .stat-cards-row .card {
+    flex: 1 1 100%;
+    width: 100%;
+    margin-bottom: 0;
+    border: 1px solid var(--admin-border);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(27, 43, 68, .06);
+    background: #ffffff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 165px;
+}
+
+body.admin-console .stat-cards-row .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(27, 43, 68, .12);
+}
+
+body.admin-console .stat-cards-row .card-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+body.admin-console .stat-cards-row .dash-widget-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+body.admin-console .dash-widget-icon {
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    border-radius: 10px;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+/* Stat icon theme colors */
+body.admin-console .dash-widget-icon.bg-info {
+    background: #0ea5e9 !important;
+}
+body.admin-console .dash-widget-icon.bg-success {
+    background: #10b981 !important;
+}
+body.admin-console .dash-widget-icon.bg-warning {
+    background: #f59e0b !important;
+}
+body.admin-console .dash-widget-icon.bg-primary {
+    background: #4f46e5 !important;
+}
+body.admin-console .dash-widget-icon.bg-purple {
+    background: #8b5cf6 !important;
+}
+body.admin-console .dash-widget-icon.bg-gold {
+    background: #d97706 !important;
+}
+body.admin-console .dash-widget-icon.bg-secondary {
+    background: #64748b !important;
+}
+
+body.admin-console .stat-cards-row .dash-widget-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+body.admin-console .stat-cards-row .dash-widget-info h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--admin-navy);
+    line-height: 1.2;
+    margin: 0 0 0.3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.admin-console .stat-cards-row .dash-widget-info h6 {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--admin-muted);
+    line-height: 1.35;
+    margin: 0 0 0.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+body.admin-console .stat-cards-row .dash-widget-info .btn {
+    align-self: flex-start;
+    margin-top: 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.32rem 0.75rem;
+    border-radius: 6px;
+}
+
+
+/* ============================================================
+   User Management Table & Controls
+   ============================================================ */
+body.admin-console .user-mgmt-card {
+    border: 1px solid var(--admin-border);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(27, 43, 68, .06);
+    background: #ffffff;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+body.admin-console .user-mgmt-card .card-header {
+    background: #ffffff;
+    border-bottom: 1px solid var(--admin-border);
+    padding: 1.25rem 1.5rem;
+}
+
+body.admin-console .user-table thead th {
+    background: #f5f7fb;
+    color: var(--admin-navy);
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-bottom: 2px solid var(--admin-border);
+    vertical-align: middle;
+}
+
+body.admin-console .user-table tbody td {
+    vertical-align: middle;
+    font-size: 0.9rem;
+}
+
+body.admin-console .user-table .edit-input {
+    font-size: 0.85rem;
+    padding: 0.25rem 0.5rem;
+    height: calc(1.5em + 0.5rem + 2px);
+    border-radius: 5px;
+}
+
+body.admin-console .user-filter-bar .role-filter-btn {
+    font-weight: 600;
+    font-size: 0.82rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 6px;
+    margin-right: 0.25rem;
+}
+
+body.admin-console .user-filter-bar .role-filter-btn.active {
+    box-shadow: 0 2px 8px rgba(24, 43, 73, 0.25);
+}

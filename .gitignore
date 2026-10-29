@@ -1,0 +1,24 @@
+# Secrets - never commit real credentials
+secrets.php
+.env
+
+# Composer dependencies (install via `composer install`)
+/vendor/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+
+# Python
+__pycache__/
+*.pyc
+
+# Local database exports
+DATABASE FILE/*.sql
+# Backup files
+*.backup
+# User uploads
+/uploads/profile/

@@ -1,0 +1,5 @@
+# EstateScope security rules
+# Deny direct web access to sensitive configuration and diagnostic files.
+<FilesMatch "^\.env(\.example)?$|^\.htaccess$|^\.htpasswd$|^secrets\.php$|^email_check\.php$">
+    Require all denied
+</FilesMatch>
