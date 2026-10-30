@@ -240,6 +240,22 @@ This repository is configured for local development, not production deployment. 
 <img width="846" height="832" alt="image" src="https://github.com/user-attachments/assets/24a2bd68-f25e-49eb-b965-70f54cdc80ae" />
 <img width="592" height="827" alt="image" src="https://github.com/user-attachments/assets/3730b0b0-7c59-4b1b-9124-d5473df1ca68" />
 
+## Super Admin
+<img width="1257" height="872" alt="image" src="https://github.com/user-attachments/assets/ccb26a8a-5dcc-4968-bdca-ee28d53a468b" />
+<img width="1905" height="902" alt="image" src="https://github.com/user-attachments/assets/3683ddcc-25c6-4ac8-b3cc-4ed9da882fc7" />
+<img width="1867" height="907" alt="image" src="https://github.com/user-attachments/assets/ab057fa0-6cee-43ee-b5dc-bfa397d58490" />
+<img width="1636" height="838" alt="image" src="https://github.com/user-attachments/assets/635326ff-381c-426d-803a-db74c2748f2a" />
+<img width="1633" height="847" alt="image" src="https://github.com/user-attachments/assets/1172764d-f391-4446-af61-7c6815b7b87d" />
+<img width="1546" height="742" alt="image" src="https://github.com/user-attachments/assets/59b11b57-459f-4a61-a33e-b1005dd7facf" />
+<img width="1673" height="901" alt="image" src="https://github.com/user-attachments/assets/e68a4d22-3b16-49f1-abfe-e754a85770d3" />
+
+
+
+
+
+
+
+
 
 
 
