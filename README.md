@@ -215,3 +215,36 @@ Additional local checks: unauthenticated property editing returned HTTP 403, and
 
 This repository is configured for local development, not production deployment. Before deployment, apply the required migrations to a backed-up database, provision a Super Admin securely, configure/test email delivery if needed, use TLS and least-privileged database accounts, remove sample data, review all role/ownership checks and uploads, add automated tests and logging, and keep payment endpoints disabled until a verified provider integration is complete.
 
+## MyDatabase
+<img width="1898" height="938" alt="image" src="https://github.com/user-attachments/assets/2485f971-4771-402c-8106-3fe3d3594315" />
+## My Home Page
+<img width="1911" height="902" alt="image" src="https://github.com/user-attachments/assets/928496f3-0e42-4e3b-b57b-60324335ee84" />
+## Sign up Page
+<img width="837" height="782" alt="image" src="https://github.com/user-attachments/assets/de4a1e40-1b44-44e0-bd35-9858013dbb80" />
+## Login Page
+<img width="915" height="736" alt="image" src="https://github.com/user-attachments/assets/73876abc-24a7-41b4-a0ed-f619c78dd262" />
+## Buyer Account
+<img width="813" height="887" alt="image" src="https://github.com/user-attachments/assets/0bf8e008-6a33-48fc-9289-9f68c1f11ef2" />
+<img width="828" height="580" alt="image" src="https://github.com/user-attachments/assets/eeff541f-6da3-43c3-a064-29b69f5de045" />
+<img width="791" height="345" alt="image" src="https://github.com/user-attachments/assets/2cc3ad0b-470c-4f16-88d4-991ad80f2591" />
+<img width="838" height="841" alt="image" src="https://github.com/user-attachments/assets/e19f365d-8628-4060-b409-309d632ef0fd" />
+
+## Agent account
+<img width="782" height="492" alt="image" src="https://github.com/user-attachments/assets/80fc8e95-d4a4-4b70-b61a-ff452f075b11" />
+<img width="916" height="853" alt="image" src="https://github.com/user-attachments/assets/0fa26445-f117-486b-8c61-978f72be73f3" />
+<img width="887" height="842" alt="image" src="https://github.com/user-attachments/assets/389ad120-06ee-4ac6-ab40-03ee52a39e92" />
+<img width="846" height="832" alt="image" src="https://github.com/user-attachments/assets/24a2bd68-f25e-49eb-b965-70f54cdc80ae" />
+<img width="592" height="827" alt="image" src="https://github.com/user-attachments/assets/3730b0b0-7c59-4b1b-9124-d5473df1ca68" />
+
+
+
+
+
+
+
+
+
+
+
+
+
