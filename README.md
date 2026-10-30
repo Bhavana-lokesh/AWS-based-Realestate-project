@@ -217,12 +217,16 @@ This repository is configured for local development, not production deployment. 
 
 ## MyDatabase
 <img width="1898" height="938" alt="image" src="https://github.com/user-attachments/assets/2485f971-4771-402c-8106-3fe3d3594315" />
+
 ##  My Home page
 <img width="1911" height="902" alt="image" src="https://github.com/user-attachments/assets/928496f3-0e42-4e3b-b57b-60324335ee84" />
+
 ##  Sign up page
 <img width="837" height="782" alt="image" src="https://github.com/user-attachments/assets/de4a1e40-1b44-44e0-bd35-9858013dbb80" />
+
 ## Login page
 <img width="915" height="736" alt="image" src="https://github.com/user-attachments/assets/73876abc-24a7-41b4-a0ed-f619c78dd262" />
+
 ## Buyer account
 <img width="813" height="887" alt="image" src="https://github.com/user-attachments/assets/0bf8e008-6a33-48fc-9289-9f68c1f11ef2" />
 <img width="828" height="580" alt="image" src="https://github.com/user-attachments/assets/eeff541f-6da3-43c3-a064-29b69f5de045" />
