@@ -214,3 +214,4 @@ Additional local checks: unauthenticated property editing returned HTTP 403, and
 ## Deployment Notes
 
 This repository is configured for local development, not production deployment. Before deployment, apply the required migrations to a backed-up database, provision a Super Admin securely, configure/test email delivery if needed, use TLS and least-privileged database accounts, remove sample data, review all role/ownership checks and uploads, add automated tests and logging, and keep payment endpoints disabled until a verified provider integration is complete.
+
