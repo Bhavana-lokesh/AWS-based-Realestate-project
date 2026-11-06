@@ -187,6 +187,156 @@ $csrfToken = $_SESSION['csrf_token'];
             <?php endif; ?>
         </aside>
     </div>
+
+    <section class="market-detail-section" style="padding:0 0 24px;">
+        <h2 style="padding:0 0 10px;">Location</h2>
+        <p><?= htmlspecialchars(implode(', ', array_filter([
+            $row['street'] ?? '',
+            $row['location'] ?? '',
+            $row['state'] ?? '',
+            $row['zip'] ?? '',
+        ])), ENT_QUOTES, 'UTF-8') ?></p>
+    </section>
+
+    <?php if ($role === 'buyer' && $userId > 0 && $property_type !== 'rental'): ?>
+    <!-- ── EMI Calculator (Buyer-only, Sale properties) ───────────────── -->
+    <section class="market-detail-section" id="emi-calculator" style="padding:24px 0;">
+        <h2>EMI Calculator</h2>
+        <p style="color:#666;font-size:13px;margin-bottom:16px;">Estimate your monthly loan repayment for this property.</p>
+        <div style="background:#f9f9f9;border:1px solid #e0e0e0;border-radius:8px;padding:24px;">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="emi-property-price">Property Price (₹)</label>
+                        <input type="number" id="emi-property-price" class="form-control"
+                               value="<?= (int)$row['price'] ?>" min="1" step="1000" readonly
+                               style="background:#f0f0f0;">
+                    </div>
+                    <div class="form-group">
+                        <label for="emi-down-payment">Down Payment (₹)</label>
+                        <input type="number" id="emi-down-payment" class="form-control"
+                               value="<?= (int)($row['price'] * 0.2) ?>" min="0" step="1000">
+                    </div>
+                    <div class="form-group">
+                        <label for="emi-loan-amount">Loan Amount (₹)</label>
+                        <input type="number" id="emi-loan-amount" class="form-control"
+                               value="<?= (int)($row['price'] * 0.8) ?>" min="1" step="1000" readonly
+                               style="background:#f0f0f0;">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="emi-rate">Annual Interest Rate (%)</label>
+                        <input type="number" id="emi-rate" class="form-control"
+                               value="8.5" min="0.1" max="30" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label for="emi-tenure">Loan Tenure (years)</label>
+                        <input type="number" id="emi-tenure" class="form-control"
+                               value="20" min="1" max="30" step="1">
+                    </div>
+                    <div class="form-group" style="margin-top:24px;">
+                        <button type="button" id="emi-calc-btn" class="market-button" style="width:100%;padding:10px;">
+                            Calculate EMI
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="emi-error" style="color:#c0392b;display:none;margin-top:8px;"></div>
+
+            <div id="emi-result" style="display:none;margin-top:20px;border-top:1px solid #ddd;padding-top:20px;">
+                <div style="display:flex;gap:20px;flex-wrap:wrap;">
+                    <div style="flex:1;min-width:140px;background:#fff;border-radius:6px;padding:16px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08);">
+                        <div style="font-size:12px;color:#888;text-transform:uppercase;letter-spacing:.5px;">Monthly EMI</div>
+                        <div id="emi-monthly" style="font-size:24px;font-weight:700;color:#1a3c5e;margin-top:6px;"></div>
+                    </div>
+                    <div style="flex:1;min-width:140px;background:#fff;border-radius:6px;padding:16px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08);">
+                        <div style="font-size:12px;color:#888;text-transform:uppercase;letter-spacing:.5px;">Total Interest</div>
+                        <div id="emi-interest" style="font-size:24px;font-weight:700;color:#c0392b;margin-top:6px;"></div>
+                    </div>
+                    <div style="flex:1;min-width:140px;background:#fff;border-radius:6px;padding:16px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08);">
+                        <div style="font-size:12px;color:#888;text-transform:uppercase;letter-spacing:.5px;">Total Repayment</div>
+                        <div id="emi-total" style="font-size:24px;font-weight:700;color:#27ae60;margin-top:6px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+    (function () {
+        var price  = document.getElementById('emi-property-price');
+        var down   = document.getElementById('emi-down-payment');
+        var loan   = document.getElementById('emi-loan-amount');
+        var rate   = document.getElementById('emi-rate');
+        var tenure = document.getElementById('emi-tenure');
+        var btn    = document.getElementById('emi-calc-btn');
+        var result = document.getElementById('emi-result');
+        var errBox = document.getElementById('emi-error');
+
+        function formatINR(n) {
+            return '₹' + Math.round(n).toLocaleString('en-IN');
+        }
+
+        function syncLoan() {
+            var p = parseFloat(price.value) || 0;
+            var d = parseFloat(down.value)  || 0;
+            d = Math.min(d, p);
+            loan.value = Math.max(0, p - d);
+        }
+
+        down.addEventListener('input', syncLoan);
+        price.addEventListener('change', syncLoan);
+
+        btn.addEventListener('click', function () {
+            errBox.style.display = 'none';
+            errBox.textContent   = '';
+            result.style.display = 'none';
+
+            var P = parseFloat(loan.value);
+            var r = parseFloat(rate.value) / 12 / 100;
+            var n = parseInt(tenure.value, 10) * 12;
+
+            if (!P || P <= 0)       { showErr('Loan amount must be greater than 0.'); return; }
+            if (!rate.value || parseFloat(rate.value) <= 0) { showErr('Enter a valid interest rate.'); return; }
+            if (!n || n <= 0)       { showErr('Tenure must be at least 1 year.'); return; }
+
+            var emi, totalPayment, totalInterest;
+            if (r === 0) {
+                emi = P / n;
+            } else {
+                emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+            }
+            totalPayment  = emi * n;
+            totalInterest = totalPayment - P;
+
+            document.getElementById('emi-monthly').textContent  = formatINR(emi);
+            document.getElementById('emi-interest').textContent = formatINR(totalInterest);
+            document.getElementById('emi-total').textContent    = formatINR(totalPayment);
+            result.style.display = 'block';
+        });
+
+        function showErr(msg) {
+            errBox.textContent   = msg;
+            errBox.style.display = 'block';
+        }
+
+        // Auto-calculate on load
+        btn.click();
+    })();
+    </script>
+    <?php endif; ?>
+
+    <?php if ($role === 'buyer' && $userId > 0): ?>
+    <!-- ── Brochure Download (Buyer-only) ──────────────────────────────── -->
+    <div style="padding:0 0 28px;text-align:center;">
+        <a class="market-button market-button-secondary"
+           href="download_brochure.php?pid=<?= (int)$property_id ?>"
+           style="display:inline-block;padding:10px 24px;">
+            📄 Download Property Brochure (PDF)
+        </a>
+    </div>
+    <?php endif; ?>
 </main>
 
 <?php include("include/footer.php"); ?>

@@ -26,7 +26,10 @@ function createPasswordResetToken(mysqli $connection, int $userId): ?string
     $check->execute();
     $cnt = (int)($check->get_result()->fetch_assoc()['cnt'] ?? 0);
     $check->close();
-    if ($cnt >= 3) { return null; }
+    if ($cnt >= 3) {
+        error_log('[EstateScope] Password reset request rate-limited.');
+        return null;
+    }
 
     // Invalidate previous unused tokens for this user
     $inv = $connection->prepare("UPDATE password_reset_tokens SET used_at = NOW()
@@ -123,8 +126,8 @@ function sendPasswordResetEmail(string $toEmail, string $toName, string $resetUr
     require_once $mailerDir . 'SMTP.php';
     require_once $mailerDir . 'Exception.php';
 
-    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
     try {
+        $mail = new PHPMailer\PHPMailer\PHPMailer(true);
         $mail->isSMTP();
         $mail->Host       = (string)(getenv('SMTP_HOST') ?: 'smtp.gmail.com');
         $mail->SMTPAuth   = true;
@@ -139,13 +142,12 @@ function sendPasswordResetEmail(string $toEmail, string $toName, string $resetUr
         $mail->Port       = (int)(getenv('SMTP_PORT') ?: 587);
         $mail->CharSet    = 'UTF-8';
 
-        $mail->setFrom((string)(getenv('SMTP_FROM_EMAIL') ?: $credentials['username']), (string)(getenv('SMTP_FROM_NAME') ?: 'EstateScope Support'));
+        $mail->setFrom((string)(getenv('SMTP_FROM_EMAIL') ?: $credentials['username']), 'EstateScope Support');
         $mail->addAddress($toEmail, $toName ?: 'User');
         $mail->Subject = 'Reset Your EstateScope Password';
         $mail->isHTML(true);
 
-        $firstName = htmlspecialchars(explode(' ', trim($toName))[0] ?: 'there', ENT_QUOTES, 'UTF-8');
-        $safeUrl   = htmlspecialchars($resetUrl, ENT_QUOTES, 'UTF-8');
+        $safeUrl = htmlspecialchars($resetUrl, ENT_QUOTES, 'UTF-8');
 
         $mail->Body = <<<HTML
 <!DOCTYPE html>
@@ -163,7 +165,7 @@ function sendPasswordResetEmail(string $toEmail, string $toName, string $resetUr
       </tr>
       <tr>
         <td style="padding:40px 40px 28px;">
-          <p style="color:#0d1432;font-size:17px;font-weight:700;margin:0 0 12px;">Hello, {$firstName}</p>
+          <p style="color:#0d1432;font-size:17px;font-weight:700;margin:0 0 12px;">Hello,</p>
           <p style="color:#74777b;font-size:15px;line-height:1.6;margin:0 0 28px;">
             We received a request to reset your EstateScope account password.<br>
             Click the button below to create a new password.
@@ -177,9 +179,6 @@ function sendPasswordResetEmail(string $toEmail, string $toName, string $resetUr
           </p>
           <p style="color:#a3a7af;font-size:13px;margin:0 0 8px;">
             This link will expire in <strong>30 minutes</strong>.
-          </p>
-          <p style="color:#a3a7af;font-size:13px;margin:0;">
-            If you did not request this password reset, you can safely ignore this email.
           </p>
         </td>
       </tr>
@@ -198,22 +197,21 @@ function sendPasswordResetEmail(string $toEmail, string $toName, string $resetUr
 HTML;
 
         $mail->AltBody =
-            "Hello {$firstName},\n\n" .
+            "Hello,\n\n" .
             "We received a request to reset your EstateScope account password.\n\n" .
             "Click the link below to create a new password:\n{$resetUrl}\n\n" .
-            "This link will expire in 30 minutes.\n\n" .
-            "If you did not request this, you can safely ignore this email.\n\n" .
+            "This link expires in 30 minutes.\n\n" .
             "Regards,\nEstateScope Support Team";
 
         $mail->send();
-        error_log('[EstateScope] Password reset email submitted via SMTP to: ' . $toEmail);
+        error_log('[EstateScope] Password reset email submitted via SMTP.');
         return true;
 
     } catch (PHPMailer\PHPMailer\Exception $e) {
-        error_log('[EstateScope] PHPMailer SMTP error sending to ' . $toEmail . ': ' . $e->getMessage());
+        error_log('[EstateScope] PHPMailer failed to submit password reset email (code ' . (int)$e->getCode() . ').');
         return false;
     } catch (Throwable $e) {
-        error_log('[EstateScope] Unexpected error sending password reset email: ' . $e->getMessage());
+        error_log('[EstateScope] Unexpected failure submitting password reset email (code ' . (int)$e->getCode() . ').');
         return false;
     }
 }

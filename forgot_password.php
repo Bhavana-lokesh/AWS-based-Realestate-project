@@ -32,7 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $base    = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
             $resetUrl = $scheme . '://' . $host . $base . '/reset_password.php?token=' . urlencode($rawToken);
 
-            sendPasswordResetEmail((string)$account['email'], (string)$account['name'], $resetUrl);
+            if (!sendPasswordResetEmail((string)$account['email'], (string)$account['name'], $resetUrl)) {
+                error_log('[EstateScope] Password reset email submission failed.');
+            }
+        } else {
+            error_log('[EstateScope] Password reset token could not be created.');
         }
     }
 
