@@ -121,7 +121,7 @@ if (isset($_POST['reg'])) {
 <?php include 'include/header.php'; ?>
 <main class="market-auth-layout">
     <section class="market-auth-visual" aria-label="Property image">
-        <img src="admin/property/download.jpeg" alt="Stone house at dusk">
+        <img src="images/signup-house.jpg" alt="Modern house at sunset">
         <div class="market-auth-visual-copy">
             <p class="market-eyebrow">EstateScope</p>
             <h2>Start with the right place.</h2>
