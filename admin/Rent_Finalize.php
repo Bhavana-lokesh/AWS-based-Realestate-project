@@ -8,31 +8,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     exit();
 }
 
-// Fetch Rental Payments (Completed Rentals)
-$query = "
-    SELECT 
-        pay.payment_id, 
-        pay.amount_paid, 
-        pay.payment_method, 
-        pay.payment_date, 
-        pay.status AS payment_status, 
-        ri.interest_id, 
-        b.user_id AS buyer_id, 
-        b.name AS buyer_name, 
-        s.user_id AS seller_id, 
-        s.name AS seller_name, 
-        p.property_id, 
-        p.title AS property_title, 
-        p.price AS rental_price
-    FROM payment pay
-    JOIN rental_interest ri ON pay.rental_interest_id = ri.interest_id
-    JOIN property_listings p ON ri.property_id = p.property_id
-    JOIN user b ON ri.buyer_id = b.user_id
-    JOIN user s ON p.seller_id = s.user_id
-    WHERE pay.status = 'Completed' AND pay.payment_type = 'Rental'
-    ORDER BY pay.payment_date DESC
-";
-$result = mysqli_query($con, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,36 +55,7 @@ $result = mysqli_query($con, $query);
                         <h4 class="card-title">📋 Rental Payment History</h4>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover table-center mb-0">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>Buyer Name (ID)</th>
-                                        <th>Property Title (ID)</th>
-                                        <th>Rental Price</th>
-                                        <th>Amount Paid</th>
-                                        <th>Agent / Listing Owner (ID)</th>
-                                        <th>Payment Method</th>
-                                        <th>Payment Date</th>
-                                        <th>Payment Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                                    <tr>
-                                        <td><?= htmlspecialchars($row['buyer_name']) . " (ID: " . $row['buyer_id'] . ")" ?></td>
-                                        <td><?= htmlspecialchars($row['property_title']) . " (ID: " . $row['property_id'] . ")" ?></td>
-                                        <td>₹<?= number_format($row['rental_price']) ?></td>
-                                        <td>₹<?= number_format($row['amount_paid']) ?></td>
-                                        <td><?= htmlspecialchars($row['seller_name']) . " (ID: " . $row['seller_id'] . ")" ?></td>
-                                        <td><?= htmlspecialchars($row['payment_method']) ?></td>
-                                        <td><?= $row['payment_date'] ?></td>
-                                        <td><strong><?= $row['payment_status'] ?></strong></td>
-                                    </tr>
-                                    <?php endwhile; ?>
-                                </tbody>
-                            </table>
-                        </div>
+                        <p class="text-muted mb-0">Records are hidden on this page; stored database records are unchanged.</p>
                     </div>
                 </div>
             </div>

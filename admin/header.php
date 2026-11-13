@@ -87,8 +87,6 @@ $analyticsActive = in_array($currentAdminPage, ['reports.php', 'view_audit_log.p
                 <li class="menu-title"><span>Main</span></li>
                 <li class="<?= $currentAdminPage === 'dashboard.php' ? 'active' : '' ?>"><a href="dashboard.php"><i class="fe fe-home"></i> <span>Dashboard</span></a></li>
                 <li class="<?= $currentAdminPage === 'appointments.php' ? 'active' : '' ?>"><a href="appointments.php"><i class="fe fe-calendar"></i> <span>Appointments</span></a></li>
-                <li class="<?= $currentAdminPage === 'payments.php' ? 'active' : '' ?>"><a href="payments.php"><i class="fe fe-credit-card"></i> <span>Payments</span></a></li>
-
                 <li class="menu-title"><span>All Users</span></li>
                 <li class="submenu <?= $usersActive ? 'active' : '' ?>">
                     <a href="#" class="<?= $usersActive ? 'active subdrop' : '' ?>"><i class="fe fe-user"></i> <span> All Users </span> <span class="menu-arrow"></span></a>

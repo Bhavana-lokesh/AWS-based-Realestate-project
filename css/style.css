@@ -16,11 +16,14 @@
  Color Settings
  ==========================================================*/
 #page-wrapper {
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 0;
+  padding-right: 0;
   background-color: #fff;
   overflow: hidden !important;
   position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 .box-layout {
   margin: 0 auto;
@@ -868,11 +871,14 @@ button:focus {
   width: 60%;
 }
 #page-wrapper {
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 0;
+  padding-right: 0;
   background-color: #fff;
   overflow: hidden !important;
   position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 .full-row {
   position: relative;

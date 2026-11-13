@@ -11,11 +11,26 @@
     --market-body: 'Muli', 'Segoe UI', sans-serif;
 }
 
+html {
+    height: 100%;
+}
+
 body.market-page,
-body.market-auth-page {
+body.market-auth-page,
+body.market-admin-auth-page {
     color: var(--market-ink);
     background: #fff;
     font-family: var(--market-body);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body > main,
+body > .market-section,
+body > .market-auth-layout,
+body > .market-dashboard {
+    flex: 1 0 auto;
 }
 
 body.market-page h1,
@@ -993,6 +1008,7 @@ body.market-admin-auth-page {
     color: #647084;
     font-size: 0.82rem;
     text-align: center;
+    margin-top: auto;
 }
 
 .market-admin-auth-page .market-auth-layout {

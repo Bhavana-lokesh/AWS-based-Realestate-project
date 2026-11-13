@@ -3,6 +3,27 @@ ini_set('session.cache_limiter','public');
 session_cache_limiter(false);
 session_start();
 include("config.php");								
+
+$aboutRows = [];
+try {
+	$query = mysqli_query($con, "SELECT title, content, image FROM about ORDER BY about_id");
+	while ($row = mysqli_fetch_assoc($query)) {
+		$aboutRows[] = $row;
+	}
+} catch (mysqli_sql_exception $exception) {
+	if ((int) $exception->getCode() !== 1146) {
+		throw $exception;
+	}
+	error_log('The about table is missing. Apply DATABASE FILE/migrations/20261113_about_page.sql.');
+}
+
+if (!$aboutRows) {
+	$aboutRows[] = [
+		'title' => 'About EstateScope',
+		'content' => '<p>EstateScope helps people discover homes and make informed real estate decisions. Browse properties, compare your options, and connect with the people who can help you find the right place.</p>',
+		'image' => null,
+	];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,26 +102,23 @@ include("config.php");
             <div class="container">
                 
 				
-				<?php 
-					
-					$query=mysqli_query($con,"SELECT * FROM about");
-					while($row=mysqli_fetch_array($query))
-					{
-				?>
+				<?php foreach ($aboutRows as $row) { ?>
 				<div class="row">
                     <div class="col-md-12 col-lg-12">
-                        <h3 class="double-down-line-left text-secondary position-relative pb-4 mb-4"><?php echo $row['1'];?></h3>
+                        <h3 class="double-down-line-left text-secondary position-relative pb-4 mb-4"><?php echo htmlspecialchars($row['title'], ENT_QUOTES, 'UTF-8');?></h3>
                     </div>
                 </div>
                 <div class="row about-company">
                     <div class="col-md-12 col-lg-7">
                         <div class="about-content">
-                            <?php echo $row['2'];?>
+                            <?php echo $row['content'];?>
                         </div>
                     </div>
+                    <?php if (!empty($row['image'])) { ?>
                     <div class="col-md-12 col-lg-5 mt-5">
-                        <div class="about-img"> <img src="admin/upload/<?php echo $row['3'];?>" alt="about image"> </div>
+                        <div class="about-img"> <img src="admin/upload/<?php echo rawurlencode(basename($row['image']));?>" alt="about image"> </div>
                     </div>
+                    <?php } ?>
                 </div>
 				
 				<?php } ?>

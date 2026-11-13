@@ -105,13 +105,6 @@ $pendingApprovalCount = $dashboardCount("SELECT COUNT(*) FROM property_listings 
 $pendingChangeRequestCount = $dashboardCount("SELECT COUNT(*) FROM property_change_requests WHERE status = 'pending'");
 $bookingActivityCount = $dashboardCount('SELECT COUNT(*) FROM appointment')
     + $dashboardCount('SELECT COUNT(*) FROM rental_interest');
-$paymentRecordCount = $dashboardCount('SELECT COUNT(*) FROM payment');
-$completedPaymentCount = $dashboardCount("SELECT COUNT(*) FROM payment WHERE status = 'Completed'");
-$paymentTotalResult = $con->query("SELECT COALESCE(SUM(amount_paid), 0) FROM payment WHERE status = 'Completed'");
-if (!$paymentTotalResult) {
-    throw new RuntimeException('Payment totals could not be loaded.');
-}
-$completedPaymentTotal = (float)$paymentTotalResult->fetch_row()[0];
 $salePropertyCount = $dashboardCount("SELECT COUNT(*) FROM property_listings WHERE property_type = 'sale'");
 $rentalPropertyCount = $dashboardCount("SELECT COUNT(*) FROM property_listings WHERE property_type = 'rental'");
 
@@ -162,7 +155,7 @@ if ($userQuery) {
         <!-- Stat Cards Row 1 -->
         <div class="row stat-cards-row">
             <!-- Total Registered Users Card -->
-            <div class="col-xl-3 col-sm-6 col-12">
+            <div class="col-xl-4 col-sm-6 col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="dash-widget-header">
@@ -177,7 +170,7 @@ if ($userQuery) {
                 </div>
             </div>
             <!-- All Properties -->
-            <div class="col-xl-3 col-sm-6 col-12">
+            <div class="col-xl-4 col-sm-6 col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="dash-widget-header">
@@ -192,7 +185,7 @@ if ($userQuery) {
                 </div>
             </div>
             <!-- Pending Approvals -->
-            <div class="col-xl-3 col-sm-6 col-12">
+            <div class="col-xl-4 col-sm-6 col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="dash-widget-header">
@@ -206,27 +199,12 @@ if ($userQuery) {
                     </div>
                 </div>
             </div>
-            <!-- Payment Total Value -->
-            <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="dash-widget-header">
-                            <span class="dash-widget-icon bg-gold"><i class="fe fe-money"></i></span>
-                        </div>
-                        <div class="dash-widget-info">
-                            <h3>₹<?= number_format($completedPaymentTotal, 2) ?></h3>
-                            <h6 class="text-muted">Completed Transaction Value</h6>
-                            <a href="payments.php" class="btn btn-sm btn-outline-warning">Transaction History</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Stat Cards Row 2 -->
         <div class="row stat-cards-row">
             <!-- Properties For Sale -->
-            <div class="col-xl-3 col-sm-6 col-12">
+            <div class="col-xl-4 col-sm-6 col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="dash-widget-header">
@@ -241,7 +219,7 @@ if ($userQuery) {
                 </div>
             </div>
             <!-- Rental Properties -->
-            <div class="col-xl-3 col-sm-6 col-12">
+            <div class="col-xl-4 col-sm-6 col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="dash-widget-header">
@@ -256,7 +234,7 @@ if ($userQuery) {
                 </div>
             </div>
             <!-- Appointments -->
-            <div class="col-xl-3 col-sm-6 col-12">
+            <div class="col-xl-4 col-sm-6 col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="dash-widget-header">
@@ -266,21 +244,6 @@ if ($userQuery) {
                             <h3><?= $bookingActivityCount ?></h3>
                             <h6 class="text-muted">Appointments & Inquiries</h6>
                             <a href="appointments.php" class="btn btn-sm btn-outline-primary">Manage Appointments</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Payments Count -->
-            <div class="col-xl-3 col-sm-6 col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="dash-widget-header">
-                            <span class="dash-widget-icon bg-success"><i class="fe fe-credit-card"></i></span>
-                        </div>
-                        <div class="dash-widget-info">
-                            <h3><?= $paymentRecordCount ?></h3>
-                            <h6 class="text-muted">Payment Records (<?= $completedPaymentCount ?> completed)</h6>
-                            <a href="payments.php" class="btn btn-sm btn-outline-success">View Payment Ledger</a>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,7 @@
 <?php 
+if (session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
 include("config.php");
 $error="";
 $msg="";
@@ -110,22 +113,20 @@ if(isset($_POST['send']))
                                 <li class="d-flex mb-4"> <i class="fas fa-map-marker-alt text-white mr-2 font-13 mt-1"></i>
                                     <div class="contact-address">
                                         <h5 class="text-white">Address</h5>
-                                        <span class="text-white">27 Ingram Street, Dayton</span> <br>
-										<span class="text-white">27 Ingram Street, Dayton</span>
+                                        <span class="text-white">Doddakalsandra, Vasantha Vallabha Nagar, Bengaluru</span>
 										</div>
                                 </li>
                                 <li class="d-flex mb-4"> <i class="fas fa-phone-alt text-white mr-2 font-13 mt-1"></i>
                                     <div class="contact-address">
                                         <h5 class="text-white">Call Us</h5>
-                                        <span class="d-table text-white">+1 234-567-8910</span>
-										<span class="text-white">+1 243-765-4321 </span>
+                                        <span class="d-table text-white">+91 7019834567</span>
+										<span class="text-white">+91 7337722443</span>
 									</div>
                                 </li>
                                 <li class="d-flex mb-4"> <i class="fas fa-envelope text-white mr-2 font-13 mt-1"></i>
                                     <div class="contact-address">
-                                        <h5 class="text-white">Email Adderss</h5>
-										<span class="d-table text-white">helpline@realestatest.com</span>
-										<span class="text-white">helpline@realestatest.com</span>
+                                        <h5 class="text-white">Email Address</h5>
+										<span class="d-table text-white">estatescopesupport@gmail.com</span>
 										</div>
                                 </li>
                             </ul>
@@ -174,10 +175,6 @@ if(isset($_POST['send']))
             </div>
         </div><!-- FOR MORE PROJECTS visit: codeastro.com -->
         <!--	Contact Inforamtion -->
-        
-        <!--	Map -->
-		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5644.408542716626!2d-117.1523848363907!3d32.73426737275872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d95495497f80c9%3A0x5df0f4372635e247!2sSan%20Diego%20Zoo!5e0!3m2!1sen!2snp!4v1658568764228!5m2!1sen!2snp" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-		<!--	Map -->
         
         <!--	Footer   start-->
 		<?php include("include/footer.php");?>

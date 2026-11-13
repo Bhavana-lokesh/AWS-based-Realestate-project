@@ -24,7 +24,7 @@ A server-rendered PHP/MySQL real estate marketplace with property search, listin
 | Agent demo inventory | Repeatable CLI seeder adds 100 clearly labeled available listings for existing Agent ID 63; rerun verified idempotent. |
 | Buyer, Agent, and Super Admin authentication | All roles sign in with email/password and an explicit role choice. Registration stores a phone number without phone verification. |
 | Shared login and logout | Implemented and locally smoke-tested against XAMPP/MySQL; logout and protected-page redirect verified |
-| Super Admin dashboard | Distinct navy-and-gold console for user/role management, listing moderation, appointment assignment, payment monitoring, reports, and analytics. |
+| Super Admin dashboard | Distinct navy-and-gold console for user/role management, listing moderation, appointment assignment, reports, and analytics; payment links and summary cards are omitted. |
 | Public marketplace and auth design | Shared desktop design system applied to homepage, listings, details, login, registration, header, and footer; legacy account/admin pages still need redesign |
 | Property assistant | PHP/MySQL chat widget supports natural-language listing filters, recommendations, listing Q&A/comparisons, and confirmed appointment requests without an external AI service |
 | Stripe payments | Disabled. Checkout and return endpoints respond with HTTP 503; no payment can be completed through the application |
@@ -120,6 +120,8 @@ Stripe and SMTP credentials are not required for browsing, registration, login, 
    ```
 
 4. Create the database in `http://localhost/phpmyadmin` with the name `realestatephp`, using `utf8mb4` where available. Select that database, choose **Import**, and import `DATABASE FILE/realestatephp (3).sql`.
+
+   After importing the dump, apply `DATABASE FILE/migrations/20261113_about_page.sql` once to create and seed the About page content. The migration is safe to rerun. If the table is absent, `about.php` displays its built-in default content and logs a migration reminder instead of failing.
 
    Fresh imports include unique `(user_id, property_id)` favorite and `user.email` constraints. For an existing database, check for duplicate favorite pairs and duplicate email addresses, resolve any duplicates without deleting user data, then apply `DATABASE FILE/migrations/20261022_add_favorite_user_property_unique.sql` and `DATABASE FILE/migrations/20261023_add_user_email_unique.sql` once each.
 
