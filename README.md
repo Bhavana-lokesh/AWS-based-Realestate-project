@@ -141,6 +141,16 @@ Stripe and SMTP credentials are not required for browsing, registration, login, 
 
    For this workspace's existing folder, use `http://localhost/AWS-based-Realestate-project/`.
 
+### Leaflet property maps
+
+The property details Contact panel uses Leaflet with OpenStreetMap tiles and server-side Nominatim geocoding. It builds the lookup from the selected listing's `street`, `location`, `state`, and `zip` fields; the existing Google Maps search and directions links remain available. No Google API key or billing setup is required.
+
+Before using the map, import `DATABASE FILE/migrations/20261115_property_map_geocoding.sql` into the application's MySQL database. The migration adds an address-hash geocode cache and shared request-throttle state; positive results are cached for 180 days and not-found results for one day. The server requires PHP cURL and outbound HTTPS access. Leaflet and map tiles also require the visitor's browser to reach their configured hosts.
+
+The default public Nominatim service has a strict application-wide maximum of one request per second and expects a descriptive User-Agent, attribution, and caching. The endpoint serializes uncached lookups across app instances, and the map displays OpenStreetMap attribution. Read the [Nominatim usage policy](https://operations.osmfoundation.org/policies/nominatim/) and [OpenStreetMap tile usage policy](https://operations.osmfoundation.org/policies/tiles/) before deployment. This public service is only appropriate for moderate/low traffic; configure a compatible geocoder using `NOMINATIM_BASE_URL` and a compliant tile service using `LEAFLET_TILE_URL` / `LEAFLET_TILE_ATTRIBUTION` before scaling. Property addresses are sent to the configured geocoder.
+
+Geocoded pins are approximate and must not be treated as verified property coordinates. The example listings in this repository contain fictional, unverified addresses. Replace them with verified listing addresses before using the map to guide buyers to a property.
+
 ## Linux/macOS Setup
 
 Install a compatible PHP runtime with `mysqli`, a MySQL/MariaDB server, Apache (or another PHP-capable web server), Composer, and Git. Clone the repository into the web server document root, then run `composer install`. Create the `realestatephp` database and import the same SQL dump using phpMyAdmin or a local MySQL/MariaDB client. Update both PHP config files if the database host/user/password differs. The application has not been tested on Linux/macOS; commands, document-root paths, and service names depend on the chosen distribution.
